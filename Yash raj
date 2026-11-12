@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090a12" />
+  <meta
+    name="description"
+    content="Create websites, AI images, and videos with NOVA Studio. Get one free credit on your first login."
+  />
+  <title>NOVA Studio — Create beyond limits</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090a12;
+      --panel: #11121d;
+      --muted: #9da0b5;
+      --text: #f7f7fc;
+      --purple: #a875ff;
+      --cyan: #62e5ee;
+      --line: rgba(255, 255, 255, 0.1);
+      --gradient: linear-gradient(110deg, #bd83ff, #6e9dff 55%, #5be2e2);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 75% 4%, rgba(108, 72, 196, .16), transparent 34rem),
+        radial-gradient(ellipse at 7% 42%, rgba(45, 154, 183, .09), transparent 32rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .container {
+      width: min(1160px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .announcement {
+      padding: 9px 16px;
+      text-align: center;
+      color: #e9dcff;
+      background: rgba(153, 101, 255, .12);
+      border-bottom: 1px solid rgba(189, 131, 255, .18);
+      font-size: .86rem;
+    }
+
+    .announcement strong { color: #d7b8ff; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(9, 10, 18, .78);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 34px;
+      height: 34px;
+      place-items: center;
+      border-radius: 11px;
+      color: #10101a;
+      background: var(--gradient);
+      box-shadow: 0 0 24px rgba(151, 110, 255, .38);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      color: #c1c2d0;
+      font-size: .92rem;
+    }
+
+    .nav-links a:hover { color: white; }
+
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 19px;
+      border: 1px solid transparent;
+      border-radius: 12px;
+      color: #10101a;
+      background: var(--gradient);
+      font-weight: 750;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(132, 108, 255, .2);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 36px rgba(132, 108, 255, .34);
+    }
+
+    .button.secondary {
+      color: white;
+      background: rgba(255,255,255,.06);
+      border-color: var(--line);
+      box-shadow: none;
+    }
+
+    .menu-button {
+      display: none;
+      color: white;
+      background: transparent;
+      border: 0;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 650px;
+      padding: 92px 0 80px;
+      display: grid;
+      grid-template-columns: 1.04fr .96fr;
+      align-items: center;
+      gap: 40px;
+      overflow: hidden;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border: 1px solid rgba(189,131,255,.25);
+      border-radius: 999px;
+      color: #d9c2ff;
+      background: rgba(154,111,255,.08);
+      font-size: .82rem;
+      font-weight: 650;
+    }
+
+    .eyebrow span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+    }
+
+    h1 {
+      max-width: 700px;
+      margin: 22px 0 18px;
+      font-size: clamp(3rem, 7vw, 5.8rem);
+      line-height: .99;
+      letter-spacing: -.075em;
+    }
+
+    .gradient-text {
+      color: transparent;
+      background: var(--gradient);
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 570px;
+      color: #b7b8c8;
+      font-size: 1.12rem;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .offer-note {
+      margin-top: 14px;
+      color: #9294a8;
+      font-size: .86rem;
+    }
+
+    .offer-note strong { color: #d9c2ff; }
+
+    .visual {
+      position: relative;
+      min-height: 430px;
+      display: grid;
+      place-items: center;
+      perspective: 900px;
+    }
+
+    .glow {
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      border-radius: 50%;
+      background: #865cff;
+      filter: blur(100px);
+      opacity: .25;
+    }
+
+    .orbit {
+      position: absolute;
+      width: 390px;
+      height: 390px;
+      border: 1px solid rgba(199,180,255,.18);
+      border-radius: 50%;
+      transform: rotateX(68deg) rotateZ(-24deg);
+      box-shadow: 0 0 50px rgba(151,110,255,.08);
+    }
+
+    .orbit.two {
+      width: 310px;
+      height: 310px;
+      transform: rotateX(68deg) rotateZ(38deg);
+      border-color: rgba(98,229,238,.18);
+    }
+
+    .orb {
+      position: absolute;
+      top: 11%;
+      left: 19%;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 22px var(--cyan);
+    }
+
+    .orb.purple {
+      top: auto;
+      left: auto;
+      right: 12%;
+      bottom: 17%;
+      width: 9px;
+      height: 9px;
+      background: #bf89ff;
+      box-shadow: 0 0 20px #bf89ff;
+    }
+
+    .showcase {
+      position: relative;
+      z-index: 1;
+      width: min(360px, 85vw);
+      min-height: 365px;
+      padding: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: 25px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.12), transparent 42%),
+        rgba(20, 21, 34, .82);
+      box-shadow: 0 35px 100px rgba(0,0,0,.55), inset 0 1px rgba(255,255,255,.12);
+      transform: rotateY(-9deg) rotateX(5deg);
+      backdrop-filter: blur(18px);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .showcase-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #b9bbca;
+      font-size: .76rem;
+    }
+
+    .window-dots { display: flex; gap: 5px; }
+    .window-dots i { width: 7px; height: 7px; border-radius: 50%; background: #ff6d8d; }
+    .window-dots i:nth-child(2) { background: #ffc966; }
+    .window-dots i:nth-child(3) { background: #65e4b2; }
+
+    .art {
+      position: relative;
+      height: 205px;
+      margin: 18px 0 14px;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      border-radius: 17px;
+      background:
+        radial-gradient(circle at 58% 47%, rgba(255,255,255,.8) 0 1%, transparent 2%),
+        radial-gradient(ellipse at 50% 70%, #fa9eae 0, #995ac6 27%, transparent 55%),
+        radial-gradient(ellipse at 40% 40%, #4c88c7, #23274b 62%, #151725);
+    }
+
+    .art::before, .art::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+    }
+
+    .art::before {
+      width: 130px;
+      height: 130px;
+      top: 30px;
+      left: 110px;
+      border: 1px solid rgba(255,255,255,.62);
+      box-shadow: 0 0 40px rgba(255,255,255,.2), inset 0 0 30px rgba(255,255,255,.15);
+    }
+
+    .art::after {
+      width: 210px;
+      height: 55px;
+      bottom: 19px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent);
+      transform: rotate(-17deg);
+      filter: blur(12px);
+    }
+
+    .art-label {
+      position: absolute;
+      z-index: 1;
+      left: 14px;
+      bottom: 12px;
+      color: rgba(255,255,255,.86);
+      font-size: .72rem;
+    }
+
+    .showcase h3 { margin: 8px 0 4px; font-size: 1.05rem; }
+    .showcase p { margin: 0; color: #a5a7b9; font-size: .82rem; }
+
+    .mini-tools {
+      display: flex;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .mini-tools span {
+      padding: 6px 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #c6c7d4;
+      font-size: .7rem;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotateY(-9deg) rotateX(5deg); }
+      50% { transform: translateY(-12px) rotateY(-6deg) rotateX(3deg); }
+    }
+
+    section { padding: 82px 0; }
+
+    .section-heading {
+      max-width: 650px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      margin: 12px 0;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -.055em;
+      line-height: 1.1;
+    }
+
+    .section-heading p { color: var(--muted); }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .service-card {
+      min-height: 240px;
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(173,134,255,.46);
+      background: linear-gradient(145deg, rgba(163,119,255,.12), rgba(255,255,255,.025));
+    }
+
+    .icon {
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(173,134,255,.24);
+      border-radius: 14px;
+      color: #d7b8ff;
+      background: rgba(163,119,255,.12);
+      font-size: 1.3rem;
+    }
+
+    .service-card h3 { margin: 20px 0 7px; font-size: 1.08rem; }
+    .service-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,255,255,.025);
+    }
+
+    .step-number {
+      color: #c79dff;
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+    }
+
+    .step h3 { margin: 12px 0 6px; }
+    .step p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+    .pricing-wrap {
+      padding: 38px;
+      border: 1px solid rgba(185,145,255,.25);
+      border-radius: 24px;
+      background:
+        radial-gradient(ellipse at 90% 0%, rgba(144,100,255,.15), transparent 45%),
+        rgba(255,255,255,.025);
+    }
+
+    .pricing-content {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .pricing-content h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      letter-spacing: -.05em;
+    }
+
+    .pricing-content p { max-width: 620px; margin: 0; color: var(--muted); }
+    .price { margin-bottom: 14px; font-size: 2rem; font-weight: 800; }
+    .price small { color: var(--muted); font-size: .9rem; font-weight: 500; }
+
+    .check-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 20px;
+      margin-top: 22px;
+      color: #d4d5e0;
+      font-size: .88rem;
+    }
+
+    .check-list span::before {
+      content: "✓";
+      margin-right: 7px;
+      color: var(--cyan);
+    }
+
+    .faq { max-width: 800px; margin: 0 auto; }
+
+    details {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 650;
+    }
+
+    details p { margin: 12px 0 0; color: var(--muted); }
+
+    footer {
+      padding: 28px 0;
+      border-top: 1px solid var(--line);
+      color: #9294a8;
+      font-size: .85rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 50;
+      max-width: min(400px, calc(100% - 40px));
+      padding: 14px 18px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 13px;
+      color: white;
+      background: #191a29;
+      box-shadow: 0 15px 50px rgba(0,0,0,.4);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: .25s ease;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 65px; text-align: center; }
+      .hero-copy { margin-inline: auto; }
+      .hero-actions { justify-content: center; }
+      .visual { min-height: 390px; }
+      .services { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { gap: 17px; }
+    }
+
+    @media (max-width: 650px) {
+      .container { width: min(100% - 28px, 1160px); }
+      .nav { min-height: 64px; }
+      .menu-button { display: block; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 64px;
+        left: 0;
+        right: 0;
+        padding: 18px 20px 22px;
+        flex-direction: column;
+        align-items: stretch;
+        background: #10111b;
+        border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .nav-links .button { margin-top: 5px; }
+      .hero { min-height: auto; padding: 58px 0 46px; }
+      .hero-copy { font-size: 1rem; }
+      .visual { min-height: 350px; }
+      .showcase { transform: none; }
+      .orbit { width: 320px; height: 320px; }
+      .orbit.two { width: 260px; height: 260px; }
+      section { padding: 62px 0; }
+      .services, .steps { grid-template-columns: 1fr; }
+      .service-card { min-height: auto; }
+      .pricing-wrap { padding: 25px 20px; }
+      .pricing-content { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">
+    ✨ <strong>First login offer:</strong> get one free credit to try NOVA Studio — once per account.
+  </div>
+
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#" aria-label="NOVA Studio home">
+        <span class="brand-mark">✦</span>
+        <span>NOVA<span class="gradient-text">STUDIO</span></span>
+      </a>
+
+      <button class="menu-button" id="menuButton" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#services">Tools</a>
+        <a href="#how">How it works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <button class="button" data-demo>Get your free credit <span aria-hidden="true">→</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container hero">
+      <div>
+        <div class="eyebrow"><span></span> Your all-in-one creative AI studio</div>
+        <h1>Make your next big idea <span class="gradient-text">real.</span></h1>
+        <p class="hero-copy">
+          Build beautiful websites, create AI images, and turn your ideas into video.
+          One simple studio for everything you want to make.
+        </p>
+        <div class="hero-actions">
+          <button class="button" data-demo>Start creating free <span aria-hidden="true">↗</span></button>
+          <a class="button secondary" href="#services">Explore the tools</a>
+        </div>
+        <p class="offer-note">One free credit on your <strong>first login</strong>. No recurring free offer.</p>
+      </div>
+
+      <div class="visual" aria-label="3D-inspired AI creation preview">
+        <div class="glow"></div>
+        <div class="orbit"><i class="orb"></i></div>
+        <div class="orbit two"><i class="orb purple"></i></div>
+        <div class="showcase">
+          <div class="showcase-top">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <span>NOVA CREATIVE CANVAS</span>
+            <span>•••</span>
+          </div>
+          <div class="art"><span class="art-label">AI IMAGE · CINEMATIC SERIES</span></div>
+          <h3>Ideas, meet imagination.</h3>
+          <p>Generate. Refine. Create something unforgettable.</p>
+          <div class="mini-tools">
+            <span>✦ Image</span><span>▶ Video</span><span>⌘ Website</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="services">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow"><span></span> Everything you need to create</div>
+          <h2>One studio. <span class="gradient-text">Four ways to make.</span></h2>
+          <p>Start with a blank page or a simple prompt. Bring your next idea to life with tools made for creators.</p>
+        </div>
+
+        <div class="services">
+          <article class="service-card">
+            <div class="icon" aria-hidden="true">⌘</div>
+            <h3>Website creation</h3>
+            <p>Create a polished website for your brand, portfolio, or business—without starting from scratch.</p>
+          </article>
+          <article class="service-card">
+            <div class="icon" aria-hidden="true">✦</div>
+            <h3>AI creation</h3>
+            <p>Turn a prompt into fresh ideas and creative content, then refine it to fit your style.</p>
+          </article>
+          <article class="service-card">
+            <div class="icon" aria-hidden="true">◉</div>
+            <h3>AI photos</h3>
+            <p>Generate original images and visual concepts for projects, campaigns, and social content.</p>
+          </article>
+          <article class="service-card">
+            <div class="icon" aria-hidden="true">▶</div>
+            <h3>AI video</h3>
+            <p>Make video concepts from your ideas and create engaging visuals ready for your workflow.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="how">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow"><span></span> Simple by design</div>
+          <h2>From idea to <span class="gradient-text">finished creation.</span></h2>
+          <p>No complicated setup. Pick a tool, describe what you want, and start creating.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">STEP 01</div>
+            <h3>Choose your tool</h3>
+            <p>Select website creation, AI creation, photos, or video—whatever your idea needs.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">STEP 02</div>
+            <h3>Describe your idea</h3>
+            <p>Write a prompt or choose a starting point. You can iterate and refine your results.</p>
+          </article>
+          <article class="step">
+            <div class="step-number">STEP 03</div>
+            <h3>Create and share</h3>
+            <p>Use your creation in your project and choose a paid plan when you need more credits.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <div class="pricing-wrap">
+          <div class="pricing-content">
+            <div>
+              <div class="eyebrow"><span></span> A simple way to get started</div>
+              <h2>Your first creation is on us.</h2>
+              <p>
+                New accounts receive one free credit on their first login. After that,
+                select a paid plan to continue creating. Plan prices and credit limits can
+                be added here when your offering is finalized.
+              </p>
+              <div class="check-list">
+                <span>One-time first-login credit</span>
+                <span>Explore the creative tools</span>
+                <span>Upgrade when you’re ready</span>
+              </div>
+            </div>
+            <div>
+              <div class="price">Free <small>one time</small></div>
+              <button class="button" data-demo>Claim free credit →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <div class="section-heading">
+          <div class="eyebrow"><span></span> Questions, answered</div>
+          <h2>Good to <span class="gradient-text">know.</span></h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>What does the first-login offer include?</summary>
+            <p>New users receive one free credit the first time they log in. It is a one-time offer per account.</p>
+          </details>
+          <details>
+            <summary>Are the tools free to use forever?</summary>
+            <p>No. The free credit is a one-time trial. Continued use is intended to be available through paid plans.</p>
+          </details>
+          <details>
+            <summary>Can I create websites, images, and videos?</summary>
+            <p>Yes. The page presents all four services: website creation, AI creation, AI photos, and AI video.</p>
+          </details>
+          <details>
+            <summary>Can I sign up or pay on this demo page?</summary>
+            <p>Not yet. This page is a front-end design; signup, payment, and AI generation need to be connected to backend services.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <a class="brand" href="#"><span class="brand-mark">✦</span><span>NOVA<span class="gradient-text">STUDIO</span></span></a>
+      <span>© <span id="year"></span> NOVA Studio. Create something amazing.</span>
+      <span>Terms · Privacy</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    Demo button: connect signup and account credits to enable this action.
+  </div>
+
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    menuButton.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuButton.setAttribute("aria-expanded", String(isOpen));
+      menuButton.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuButton.setAttribute("aria-expanded", "false");
+      });
+    });
+
+    document.querySelectorAll("[data-demo]").forEach((button) => {
+      button.addEventListener("click", () => {
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 3500);
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
